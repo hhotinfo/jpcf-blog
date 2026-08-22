@@ -1,0 +1,35 @@
+name: Build e publicar blog
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configurar Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Instalar dependências
+        run: npm install
+
+      - name: Gerar data/articles.json a partir dos artigos Markdown
+        run: npm run build
+
+      - name: Commitar articles.json atualizado (se mudou)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/articles.json
+          git diff --quiet --cached || git commit -m "chore: atualizar data/articles.json [skip ci]"
+          git push

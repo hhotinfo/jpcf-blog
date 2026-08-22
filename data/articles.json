@@ -1,14 +1,5 @@
 [
   {
-    "slug": "bem-vindo-ao-blog",
-    "title": "Bem-vindo ao blog",
-    "date": "2026-08-22",
-    "category": "Geral",
-    "excerpt": "Um primeiro artigo de exemplo explicando como este blog funciona e como você pode editá-lo.",
-    "contentHtml": "<p>Este é um artigo de exemplo. Você pode apagá-lo ou editá-lo quando quiser.</p>\n<h2>Como este blog funciona</h2>\n<p>Cada artigo é um arquivo de texto simples (Markdown) dentro da pasta <code>content/articles/</code>. Para publicar um novo artigo:</p>\n<ol>\n<li>Crie um novo arquivo <code>.md</code> nessa pasta (pode copiar este como modelo).</li>\n<li>Preencha o cabeçalho no topo do arquivo (entre as linhas <code>---</code>) com título, data, categoria e um resumo.</li>\n<li>Escreva o conteúdo do artigo em Markdown normalmente abaixo do cabeçalho.</li>\n<li>Salve e envie (<code>commit</code>) o arquivo para o repositório no GitHub.</li>\n</ol>\n<p>Assim que o arquivo é enviado, o site é atualizado automaticamente — sem precisar mexer em código, banco de dados ou instalar nada.</p>\n<h2>Por que Markdown?</h2>\n<p>Markdown é só texto com uma formatação simples: <code>**negrito**</code>, <code>_itálico_</code>, <code>## título</code>, listas com <code>-</code>, links <code>[texto](url)</code>, etc. É leve, funciona em qualquer editor (inclusive direto pelo site do GitHub, no navegador do iPad) e fica guardado com histórico de versões.</p>\n",
-    "sourceFile": "bem-vindo-ao-blog.md"
-  },
-  {
     "slug": "segundo-artigo-exemplo",
     "title": "Segundo artigo de exemplo",
     "date": "2026-08-15",

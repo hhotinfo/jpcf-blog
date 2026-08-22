@@ -1,0 +1,12 @@
+{
+  "name": "jpcf-blog",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Blog de artigos de José Paulo Cavalcanti",
+  "scripts": {
+    "build": "node scripts/build.js"
+  },
+  "dependencies": {
+    "marked": "^12.0.0"
+  }
+}

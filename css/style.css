@@ -226,7 +226,7 @@ a:hover { color: var(--accent-hover); }
 .article-full h1 { font-size: 2rem; margin: 0 0 10px; }
 .article-body { font-size: 1.05rem; }
 .article-body h2 { margin-top: 2em; }
-.article-body p { margin: 1.1em 0; }
+.article-body p { margin: 1.1em 0; text-align: justify; }
 .article-body img { max-width: 100%; border-radius: var(--radius); }
 .article-body a { text-decoration: underline; }
 .article-body blockquote {

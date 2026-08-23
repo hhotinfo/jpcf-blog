@@ -96,7 +96,7 @@
       '<div class="sidebar-block sidebar-about">' +
       '<h3 class="sidebar-title">Sobre o blog' +
       (state.visitorCount !== null
-        ? '<span class="visitor-counter" title="visitantes">' + state.visitorCount + "</span>"
+        ? '<span class="visitor-counter">' + state.visitorCount + "</span>"
         : "") +
       "</h3>" +
       "<p>" + escapeHtml(state.config.bio || "") + "</p>" +

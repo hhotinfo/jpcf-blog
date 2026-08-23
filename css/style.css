@@ -158,10 +158,10 @@ a:hover { color: var(--accent-hover); }
 }
 
 .visitor-counter {
-  text-transform: none;
-  letter-spacing: normal;
-  font-weight: normal;
-  color: var(--text-muted);
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 8px;
+  height: 16px;
 }
 
 /* Search */

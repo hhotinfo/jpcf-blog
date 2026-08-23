@@ -6,7 +6,11 @@
     articles: [],
     query: "",
     category: null,
+    visitorCount: null,
   };
+
+  var VISITOR_COUNTER_NAMESPACE = "jpcf-blog-hhotinfo";
+  var VISITOR_COUNTER_KEY = "visitas";
 
   var contentEl = document.getElementById("content");
   var sidebarEl = document.getElementById("sidebar");
@@ -90,7 +94,13 @@
       "</ul>" +
       "</div>" +
       '<div class="sidebar-block sidebar-about">' +
-      '<h3 class="sidebar-title">Sobre o blog</h3>' +
+      '<h3 class="sidebar-title">Sobre o blog' +
+      '<span class="visitor-counter" id="visitor-counter">' +
+      (state.visitorCount !== null
+        ? " · " + state.visitorCount + (state.visitorCount === 1 ? " visitante" : " visitantes")
+        : "") +
+      "</span>" +
+      "</h3>" +
       "<p>" + escapeHtml(state.config.bio || "") + "</p>" +
       "</div>";
 
@@ -216,6 +226,35 @@
 
     window.addEventListener("hashchange", render);
     render();
+    fetchVisitorCount();
+  }
+
+  function fetchVisitorCount() {
+    var counted = false;
+    try {
+      counted = sessionStorage.getItem("jpcf_visit_counted") === "1";
+    } catch (e) {}
+
+    var url = counted
+      ? "https://api.countapi.xyz/get/" + VISITOR_COUNTER_NAMESPACE + "/" + VISITOR_COUNTER_KEY
+      : "https://api.countapi.xyz/hit/" + VISITOR_COUNTER_NAMESPACE + "/" + VISITOR_COUNTER_KEY;
+
+    fetch(url)
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        if (typeof data.value !== "number") return;
+        state.visitorCount = data.value;
+        try {
+          sessionStorage.setItem("jpcf_visit_counted", "1");
+        } catch (e) {}
+        var hash = window.location.hash || "#/";
+        if (hash !== "#/sobre" && !hash.match(/^#\/artigo\//)) {
+          renderSidebar();
+        }
+      })
+      .catch(function (err) {
+        console.error("Visitor counter indisponível:", err);
+      });
   }
 
   Promise.all([

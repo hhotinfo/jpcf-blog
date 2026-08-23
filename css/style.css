@@ -157,6 +157,13 @@ a:hover { color: var(--accent-hover); }
   margin: 0;
 }
 
+.visitor-counter {
+  text-transform: none;
+  letter-spacing: normal;
+  font-weight: normal;
+  color: var(--text-muted);
+}
+
 /* Search */
 .search-box {
   display: flex;

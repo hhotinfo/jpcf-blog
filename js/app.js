@@ -6,10 +6,11 @@
     articles: [],
     query: "",
     category: null,
+    visitorCount: null,
   };
 
-  var VISITOR_BADGE_URL =
-    "https://hits.sh/hhotinfo.github.io/jpcf-blog.svg?style=flat-square&label=visitantes&color=6b7280";
+  var VISITOR_COUNTER_NAMESPACE = "jpcf-blog-hhotinfo";
+  var VISITOR_COUNTER_KEY = "visitas";
 
   var contentEl = document.getElementById("content");
   var sidebarEl = document.getElementById("sidebar");
@@ -94,7 +95,9 @@
       "</div>" +
       '<div class="sidebar-block sidebar-about">' +
       '<h3 class="sidebar-title">Sobre o blog' +
-      '<img class="visitor-counter" src="' + VISITOR_BADGE_URL + '" alt="contador de visitantes" />' +
+      (state.visitorCount !== null
+        ? '<span class="visitor-counter" title="visitantes">' + state.visitorCount + "</span>"
+        : "") +
       "</h3>" +
       "<p>" + escapeHtml(state.config.bio || "") + "</p>" +
       "</div>";
@@ -221,6 +224,39 @@
 
     window.addEventListener("hashchange", render);
     render();
+    fetchVisitorCount();
+  }
+
+  function fetchVisitorCount() {
+    var counted = false;
+    try {
+      counted = sessionStorage.getItem("jpcf_visit_counted") === "1";
+    } catch (e) {}
+
+    var base = "https://abacus.jasoncameron.dev/";
+    var url =
+      base +
+      (counted ? "get/" : "hit/") +
+      VISITOR_COUNTER_NAMESPACE +
+      "/" +
+      VISITOR_COUNTER_KEY;
+
+    fetch(url)
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        if (typeof data.value !== "number") return;
+        state.visitorCount = data.value;
+        try {
+          sessionStorage.setItem("jpcf_visit_counted", "1");
+        } catch (e) {}
+        var hash = window.location.hash || "#/";
+        if (hash !== "#/sobre" && !hash.match(/^#\/artigo\//)) {
+          renderSidebar();
+        }
+      })
+      .catch(function (err) {
+        console.error("Visitor counter indisponível:", err);
+      });
   }
 
   Promise.all([
